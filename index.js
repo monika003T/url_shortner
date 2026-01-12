@@ -1,9 +1,12 @@
 const express=require("express");
 const path = require("path")
 const {connectToMongoDb}=require('./connect');
+
+//routes
 const urlRoute=require('./routes/url');
 const Url= require('./models/url')
 const staticRoute=require('./routes/staticRouter');
+const userRoute=require('./routes/user')
 
 
 const app=express();
@@ -35,10 +38,11 @@ app.set('views', path.resolve("./views"));
 // console.log(typeof urlRoute, urlRoute);
 
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 
 
 app.use('/url',urlRoute);
+app.use('/user',userRoute);
 app.use("/",staticRoute);
 
 

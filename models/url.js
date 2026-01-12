@@ -18,6 +18,8 @@ const urlSchema=new mongoose.Schema(
     },
     
 );
+//model- use to connect schema to mongoose 
 const Url=mongoose.model('Url',urlSchema)
 
 module.exports=Url;
+

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const allurls = await Url.find({});
-  return res.render("Homee", {
+  return res.render("home", {
     urls: allurls, 
   });
 });

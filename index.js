@@ -13,10 +13,24 @@ const PORT=8001;
 connectToMongoDb('mongodb://localhost:27017/short-url')
 .then(()=>console.log("mongo connected"))
 
+app.get('/',async (req,res)=>{
+    const allUrls=await Url.find({});
+    return res.render("home",{
+        urls:allUrls,
+    })
 
+    /* return res.end(`
+        <html>
+        <head>
+        <body>
+        <ol>${allUrls.map(url=>`<li>${url.shortId} - ${url.redirectUrl} - ${url.visitorClicks.length}</li>`).join('')}</ol>
+        </body>
+        </head>
+        </html>`) */
+});
 //ejs
 app.set('view engine',"ejs");
-app.set('views',path.resolve("./views"));
+app.set('views', path.resolve("./views"));
 
 // console.log(typeof urlRoute, urlRoute);
 
@@ -25,6 +39,7 @@ app.use(express.urlencoded({extended:false}));
 
 
 app.use('/url',urlRoute);
+app.use("/",staticRoute);
 
 
 app.get('/url/:shortId', async (req,res)=>{
@@ -43,5 +58,5 @@ app.get('/url/:shortId', async (req,res)=>{
 
 res.redirect(entry.redirectUrl)
 });
-app.use("/",staticRoute);
+
 app.listen(PORT,()=>console.log("server connected successfully",PORT))

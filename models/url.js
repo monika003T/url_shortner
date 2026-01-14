@@ -15,6 +15,11 @@ const urlSchema=new mongoose.Schema(
         visitorClicks:[
             {timestamp:Number}
         ],
+        createdBy:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"user",
+            required: true,
+        },
     },
     
 );
